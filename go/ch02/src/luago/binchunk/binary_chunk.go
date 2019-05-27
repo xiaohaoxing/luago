@@ -23,7 +23,7 @@ type header struct {
 
 // 各个头信息的默认值
 const (
-	LUA_SIGNITURE = "\x1bLua"
+	LUA_SIGNATURE = "\x1bLua"
 	LUAC_VERSION = 0x53
 	LUAC_FORMAT = 0
 	LUAC_DATA = "\x19\x93\r\n\x1a\n"
@@ -50,4 +50,31 @@ type Prototype struct {
 	LineInfo []uint32
 	LocVars []LocVar
 	UpvalueNames []string
+}
+
+const (
+	TAG_NIL = 0x00
+	TAG_BOOLEAN = 0x01
+	TAG_NUMBER = 0x03
+	TAG_INTEGER = 0x13
+	TAG_SHORT_STR = 0x04
+	TAG_LONG_STR = 0x14
+)
+
+type Upvalue struct {
+	Instack byte
+	Idx byte
+}
+
+type LocVar struct {
+	VarName string
+	StartPC uint32
+	EndPC uint32
+}
+
+func Undump(data []byte) *Prototype {
+	reader := &reader{data}
+	reader.checkHeader()
+	reader.readByte()
+	return reader.readProto("")
 }
