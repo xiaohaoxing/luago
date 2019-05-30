@@ -40,7 +40,7 @@ func printHeader(f *binchunk.Prototype) {
 
 	fmt.Printf("%d%s params, %d slots, %d upvalues, ", f.NumParams, varargFlag, f.MaxStackSize, len(f.Upvalues))
 
-	fmt.Printf("$d locals, %d constants, %d functions\n", len(f.LocVars), len(f.Constants), len(f.Protos))
+	fmt.Printf("%d locals, %d constants, %d functions\n", len(f.LocVars), len(f.Constants), len(f.Protos))
 }
 
 func printCode(f *binchunk.Prototype) {
@@ -49,19 +49,19 @@ func printCode(f *binchunk.Prototype) {
 		if len(f.LineInfo) > 0 {
 			line = fmt.Sprintf("%d", f.LineInfo[pc])
 		}
-		fmt.Printf("\t%d\t[%s]\t0x%08X\n", pc + 1, line, c)
+		fmt.Printf("\t%d\t[%s]\t0x%08X\n", pc+1, line, c)
 	}
 }
 
-func printDetail(f *binchunk.Prototype)  {
+func printDetail(f *binchunk.Prototype) {
 	fmt.Printf("constants (%d):\n", len(f.Constants))
 	for i, k := range f.Constants {
-		fmt.Printf("\t%d\t%s\n", i + 1, constantToString(k))
+		fmt.Printf("\t%d\t%s\n", i+1, constantToString(k))
 	}
 
 	fmt.Printf("locals (%d):\n", len(f.LocVars))
 	for i, locVar := range f.LocVars {
-		fmt.Printf("\t%d\t%s\t%d\t%d\n", i, locVar.VarName, locVar.StartPC + 1, locVar.EndPC + 1)
+		fmt.Printf("\t%d\t%s\t%d\t%d\n", i, locVar.VarName, locVar.StartPC+1, locVar.EndPC+1)
 	}
 
 	fmt.Printf("upvalues (%d):\n", len(f.Upvalues))
@@ -72,12 +72,18 @@ func printDetail(f *binchunk.Prototype)  {
 
 func constantToString(k interface{}) string {
 	switch k.(type) {
-	case nil: return "nil"
-	case bool: return fmt.Sprintf("%t", k)
-	case float64: return fmt.Sprintf("%g", k)
-	case int64: return fmt.Sprintf("%d", k)
-	case string: return fmt.Sprintf("%q", k)
-	default: return "?"
+	case nil:
+		return "nil"
+	case bool:
+		return fmt.Sprintf("%t", k)
+	case float64:
+		return fmt.Sprintf("%g", k)
+	case int64:
+		return fmt.Sprintf("%d", k)
+	case string:
+		return fmt.Sprintf("%q", k)
+	default:
+		return "?"
 	}
 }
 
@@ -87,4 +93,3 @@ func upvalName(f *binchunk.Prototype, idx int) string {
 	}
 	return "-"
 }
-
