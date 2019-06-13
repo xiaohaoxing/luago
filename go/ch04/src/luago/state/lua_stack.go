@@ -68,3 +68,13 @@ func (self *luaStack) set(idx int, val luaValue) {
 	}
 	panic("Invalid index!")
 }
+
+// 反转 from 和 to 之间索引的所有元素
+func (self *luaStack) reverse(from, to int) {
+	slots := self.slots
+	for from < to {
+		slots[from], slots[to] = slots[to], slots[from]
+		from++
+		to--
+	}
+}

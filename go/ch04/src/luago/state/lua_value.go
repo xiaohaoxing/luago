@@ -1,5 +1,7 @@
 package state
 
+import . "luago/api"
+
 type luaValue interface{}
 
 func typeOf(val luaValue) LuaType {

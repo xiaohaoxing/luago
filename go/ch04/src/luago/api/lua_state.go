@@ -12,7 +12,7 @@ type LuaState interface {
 	Replace(idx int)
 	Insert(idx int)
 	Remove(idx int)
-	Rotate(idx int)
+	Rotate(idx, n int)
 	SetTop(idx int)
 
 	TypeName(tp LuaType) string
