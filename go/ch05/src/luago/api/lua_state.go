@@ -1,6 +1,8 @@
 package api
 
 type LuaType = int
+type ArithOp = int
+type CompareOp = int
 
 type LuaState interface {
 	GetTop() int
@@ -37,4 +39,10 @@ type LuaState interface {
 	PushInteger(n int64)
 	PushNumber(n float64)
 	PushString(s string)
+
+	// 新增方法：
+	Arith(op ArithOp)                          // 算数和按位运算
+	Compare(idx1, idx2 int, op CompareOp) bool // 比较运算
+	Len(idx int)                               // 取长度运算 "#"
+	Concat(n int)                              // 字符串拼接运算 "AAA" .. "BBB"
 }
