@@ -10,7 +10,7 @@ type luaState struct {
 
 func New(stackSize int, proto *binchunk.Prototype) *luaState {
 	return &luaState{
-		stack: newLuaStack(20),
+		stack: newLuaStack(stackSize),
 		proto: proto,
 		pc:    0,
 	}

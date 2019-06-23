@@ -32,7 +32,7 @@ func ShiftLeft(a, n int64) int64 {
 
 func ShiftRight(a, n int64) int64 {
 	if n >= 0 {
-		return int64(uint64(a)) >> uint64(n)
+		return int64(uint64(a) >> uint64(n))
 	} else {
 		return ShiftLeft(a, -n)
 	}
