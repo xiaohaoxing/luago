@@ -2,32 +2,41 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"luago/state"
+	"os"
 )
 import "luago/binchunk"
 import . "luago/vm"
 import . "luago/api"
 
 func main() {
-	ls := state.New()
-	ls.PushInteger(1)
-	ls.PushString("2.0")
-	ls.PushString("3.0")
-	ls.PushNumber(4.0)
-	printStack(ls)
-
-	ls.Arith(LUA_OPADD)
-	printStack(ls)
-	ls.Arith(LUA_OPBNOT)
-	printStack(ls)
-	ls.Len(2)
-	printStack(ls)
-	ls.Concat(3)
-	printStack(ls)
-	ls.PushBoolean(ls.Compare(1, 2, LUA_OPEQ))
-	printStack(ls)
+	if len(os.Args) > 1 {
+		data, err := ioutil.ReadFile(os.Args[1])
+		if err != nil {
+			panic(err)
+		}
+		proto := binchunk.Undump(data)
+		luaMain(proto)
+	}
 }
 
+func luaMain(proto *binchunk.Prototype) {
+	nRegs := int(proto.MaxStackSize)
+	ls := state.New(nRegs+8, proto) // 预留一部分栈空间
+	ls.SetTop(nRegs)
+	for {
+		pc := ls.PC()
+		inst := Instruction(ls.Fetch())
+		if inst.Opcode() != OP_RETURN {
+			inst.Execute(ls)
+			fmt.Printf("[%02d] %s", pc+1, inst.OpName())
+			printStack(ls)
+		} else {
+			break
+		}
+	}
+}
 func printStack(ls LuaState) {
 	top := ls.GetTop()
 	for i := 1; i <= top; i++ {
