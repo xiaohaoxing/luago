@@ -125,9 +125,9 @@ func (self *reader) readConstant() interface{} {
 	case TAG_BOOLEAN:
 		return self.readByte() != 0
 	case TAG_INTEGER:
-		return self.readLuaInteger
+		return self.readLuaInteger()
 	case TAG_NUMBER:
-		return self.readLuaNumber
+		return self.readLuaNumber()
 	case TAG_SHORT_STR:
 		return self.readString()
 	case TAG_LONG_STR:

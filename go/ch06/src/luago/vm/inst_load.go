@@ -7,7 +7,7 @@ func loadNil(i Instruction, vm LuaVM) {
 	a += 1
 	// 在栈顶放一个 nil，再复制 n 次到指定位置，再 pop 掉这个 nil。
 	vm.PushNil()
-	for i := a; i < a+b; i++ {
+	for i := a; i <= a+b; i++ {
 		vm.Copy(-1, i)
 	}
 	vm.Pop(1)
