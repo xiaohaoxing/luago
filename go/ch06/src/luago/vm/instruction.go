@@ -1,5 +1,7 @@
 package vm
 
+import "luago/api"
+
 type Instruction uint32
 
 // 取值范围
@@ -47,4 +49,13 @@ func (self Instruction) BMode() byte {
 
 func (self Instruction) CMode() byte {
 	return opcodes[self.Opcode()].argCMode
+}
+
+func (self Instruction) Execute(vm api.LuaVM) {
+	action := opcodes[self.Opcode()].action
+	if action != nil {
+		action(self, vm)
+	} else {
+		panic(self.OpName())
+	}
 }
