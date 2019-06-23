@@ -33,8 +33,8 @@ func bor(i Instruction, vm LuaVM)  { _binaryArith(i, vm, LUA_OPBOR) }
 func bxor(i Instruction, vm LuaVM) { _binaryArith(i, vm, LUA_OPBXOR) }
 func shl(i Instruction, vm LuaVM)  { _binaryArith(i, vm, LUA_OPSHL) }
 func shr(i Instruction, vm LuaVM)  { _binaryArith(i, vm, LUA_OPSHR) }
-func unm(i Instruction, vm LuaVM)  { _binaryArith(i, vm, LUA_OPUNM) }
-func bnot(i Instruction, vm LuaVM) { _binaryArith(i, vm, LUA_OPBNOT) }
+func unm(i Instruction, vm LuaVM)  { _unaryArith(i, vm, LUA_OPUNM) }
+func bnot(i Instruction, vm LuaVM) { _unaryArith(i, vm, LUA_OPBNOT) }
 
 func length(i Instruction, vm LuaVM) {
 	a, b, _ := i.ABC()
