@@ -5,7 +5,6 @@ import . "luago/api"
 func forPrep(i Instruction, vm LuaVM) {
 	a, sBx := i.AsBx()
 	a += 1
-	// todo 可能对 a 和 b 类型转换
 	vm.PushValue(a)
 	vm.PushValue(a + 2)
 	vm.Arith(LUA_OPSUB)

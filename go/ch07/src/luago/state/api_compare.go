@@ -72,7 +72,6 @@ func _lt(a, b luaValue) bool {
 			return x < float64(y)
 		}
 	}
-	// TODO 其他情况暂时不处理，抛出异常
 	panic("Comparison type error!")
 }
 
@@ -97,6 +96,5 @@ func _le(a, b luaValue) bool {
 			return x <= float64(y)
 		}
 	}
-	// TODO 其他情况暂时不处理，抛出异常
 	panic("Comparison type error!")
 }
