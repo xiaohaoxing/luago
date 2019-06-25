@@ -40,9 +40,21 @@ type LuaState interface {
 	PushNumber(n float64)
 	PushString(s string)
 
-	// 新增方法：
 	Arith(op ArithOp)                          // 算数和按位运算
 	Compare(idx1, idx2 int, op CompareOp) bool // 比较运算
 	Len(idx int)                               // 取长度运算 "#"
 	Concat(n int)                              // 字符串拼接运算 "AAA" .. "BBB"
+
+	// 新增加的方法
+	/* Table 的 getter */
+	NewTable()
+	CreateTable(nArr, nRec int)
+	GetTable(idx int) LuaType
+	GetField(idx int, k string) LuaType
+	GetI(idx int, i int64) LuaType
+
+	/* Table 的 setter */
+	SetTable(idx int)
+	SetField(idx int, k string)
+	SetI(idx int, n int64)
 }

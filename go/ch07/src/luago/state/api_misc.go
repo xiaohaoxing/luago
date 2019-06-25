@@ -1,10 +1,12 @@
 package state
 
-// 实现长度运算：暂时只处理 string 类型的
+// 实现长度运算：暂时处理 string 类型和 table 类型的
 func (self *luaState) Len(idx int) {
 	val := self.stack.get(idx)
 	if s, ok := val.(string); ok {
 		self.stack.push(int64(len(s)))
+	} else if t, ok := val.(*luaTable); ok {
+		self.stack.push(int64(t.len()))
 	} else {
 		panic("length error!")
 	}
