@@ -58,6 +58,13 @@ func _return(i Instruction, vm LuaVM) {
 	a += 1
 	if b == 1 {
 		// no return value
+	} else if b > 1 {
+		vm.CheckStack(b - 1)
+		for i := a; i <= a+b-2; i++ {
+			vm.PushValue(i)
+		}
+	} else {
+		_fixStack(a, vm)
 	}
 }
 
