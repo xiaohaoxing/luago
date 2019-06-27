@@ -17,7 +17,7 @@ func Int2fb(x int) int {
 		x = (x + 0xf) >> 4
 		e += 4
 	}
-	for x >= (8 >> 1) {
+	for x >= (8 << 1) {
 		x = (x + 1) >> 1
 		e++
 	}
