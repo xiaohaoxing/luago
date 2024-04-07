@@ -42,3 +42,5 @@ luac.out
 # ignore the go output
 bin
 bin/*
+
+/go/ch[0-9][0-9]/pkg
